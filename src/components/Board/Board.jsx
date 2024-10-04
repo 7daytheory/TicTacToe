@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Square from '../Square/Square';
-import ReactDOM from 'react-dom';
 
-const Board = ({ squares }) => {
-    console.log(squares);
-  const renderSquare = (i) => {
-    if (!squares || !squares[i]) return null;
+const Board = () => {
+// Initialize state for squares
+const [squares, setSquares] = useState(Array(9).fill(null));
+const [xIsNext, setXIsNext] = useState(true);
+
+// Handle square click
+const handleClick = (i) => {
+  const newSquares = squares.slice();
+  if (calculateWinner(squares) || squares[i]) {
+    return;
+  }
+  newSquares[i] = xIsNext ? 'X' : 'O';
+  setSquares(newSquares);
+  setXIsNext(!xIsNext);
+};
+
+// Render a square with Square Component
+const renderSquare = (i) => {
     return (
       <Square
         value={squares[i]}
@@ -17,6 +30,7 @@ const Board = ({ squares }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <div className="mb-4 text-2xl font-bold">{status}</div>
       <div className="flex">
         {renderSquare(0)}
         {renderSquare(1)}
