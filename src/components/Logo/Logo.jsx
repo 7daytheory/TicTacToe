@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import Instructions from '../Instructions/Instructions';
+import Banner from '../Banner/Banner';
 
 const Logo = () => {
   const [showInstructions, setShowInstructions] = useState(false);
 
   const toggleInstructions = () => {
-    setShowInstructions((prev) => !prev); // Toggle
+    setShowInstructions((prev) => !prev); // Toggle instructions visibility
   };
 
   return (
-    <div>
+    <div className="w-full">
+      {/* Navigation section */}
       <div className="bg-slate-800 text-white p-2 w-full flex justify-center">
         <div className="flex justify-between items-center w-[900px] p-2">
           <div className="text-2xl">Tic Tac Toe</div>
@@ -19,7 +20,9 @@ const Logo = () => {
         </div>
       </div>
 
-      {showInstructions && <Instructions />}
+      <div>
+        <Banner showInstructions={showInstructions} />
+      </div>
     </div>
   );
 };
