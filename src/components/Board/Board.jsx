@@ -1,38 +1,28 @@
-import React, { useState } from 'react';
-import Square from '../Square/Square';
+import React, { useState } from 'react'; // Import React and useState hook from React library
+import Square from '../Square/Square'; // Import the Square component from the specified path
 
 const Board = () => {
-// Initialize state for squares
-const [squares, setSquares] = useState(Array(9).fill(null));
-const [xIsNext, setXIsNext] = useState(true);
+  // Initialize state for the board squares
+  // `squares` is an array of 9 elements representing the 9 squares of the board.
+  // Initially, all squares are set to `null` (no moves made).
+  // `setSquares` is the function to update the state.
+  const [squares, setSquares] = useState(Array(9).fill(null));
 
-// Handle square click
-const handleClick = (i) => {
-  const newSquares = squares.slice();
-  if (calculateWinner(squares) || squares[i]) {
-    return;
-  }
-  newSquares[i] = xIsNext ? 'X' : 'O';
-  setSquares(newSquares);
-  setXIsNext(!xIsNext);
-};
-
-// Render a square with Square Component
-const renderSquare = (i) => {
+  // Render a single square by passing the current value (either 'X', 'O', or null) 
+  const renderSquare = (i) => {
     return (
       <Square
         value={squares[i]}
-        onClick={() => handleClick(i)}
       />
     );
   };
-  
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="mb-4 text-2xl font-bold">{status}</div>
+    <div className="flex flex-col items-center justify-center mt-8">
+
+      {/* Render the 3 rows */}
       <div className="flex">
-        {renderSquare(0)}
+        {renderSquare(0)} {/* Render square at index 0  - 8 (1-9)*/}
         {renderSquare(1)}
         {renderSquare(2)}
       </div>
@@ -43,11 +33,11 @@ const renderSquare = (i) => {
       </div>
       <div className="flex">
         {renderSquare(6)}
-        {renderSquare(7)}
+        {renderSquare(7)} 
         {renderSquare(8)}
       </div>
     </div>
   );
 };
 
-export default Board;
+export default Board
