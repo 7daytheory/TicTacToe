@@ -2,8 +2,8 @@ import React from 'react';
 
 const Banner = ({ showInstructions }) => {
   return (
-    <div className="w-full bg-blue-600 p-6 text-white text-center space-y-6">
-      <h1 className="text-3xl font-bold">How to Play: It's a new game so bear with us.</h1>
+    <div className="w-full bg-red-600 p-8 text-white text-center space-y-6">
+      <h1 className="text-2xl font-bold">Instructions: You may not have heard of this game so follow carefully.</h1>
       
       {/* Conditionally show instructions */}
       {showInstructions && (

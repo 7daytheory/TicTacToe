@@ -13,7 +13,7 @@ const Logo = () => {
     <div className="w-full">
       <div className="bg-slate-800 text-white p-2 w-full flex justify-center">
         <div className="flex justify-between items-center w-[900px] p-2">
-          <img src={logoWhite} alt="Tic Tac Toe" />
+          <img src={logoWhite} alt="Tic Tac Toe" className="w-[200px] h-auto" />
           <p className="cursor-pointer hover:text-gray-200" onClick={toggleInstructions}>
             Instructions
           </p>
