@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Banner from '../Banner/Banner';
+import Instructions from '../Instructions/Instructions';
 
 const Logo = () => {
-  const [showBanner, setShowBanner] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const toggleInstructions = () => {
-    setShowBanner((prev) => !prev);
+    setShowInstructions((prev) => !prev); // Toggle
   };
 
   return (
@@ -19,7 +19,7 @@ const Logo = () => {
         </div>
       </div>
 
-      {showBanner && <Banner />}
+      {showInstructions && <Instructions />}
     </div>
   );
 };
