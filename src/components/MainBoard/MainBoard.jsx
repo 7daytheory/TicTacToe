@@ -1,3 +1,6 @@
+// MainBoard.js
+import React from 'react';
+
 const MainBoard = ({ squares, handleClick }) => {
   const renderSquare = (i) => {
     return (

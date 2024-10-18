@@ -1,44 +1,44 @@
+// Board.js
 import React, { useState } from 'react';
 import MainBoard from '../MainBoard/MainBoard';
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
-
-  //Check for winner
   const [winner, setWinner] = useState(null);
 
-  //Set possible winning combinations
+  // Define winning combinations (3 rows, 3 columns, 2 diagonals)
   const calculateWinner = (squares) => {
     const lines = [
-      [0, 1, 2], // first - third row
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6], // First to third column
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8], // 2 diagonals
-      [2, 4, 6],
+      [0, 1, 2], // First row
+      [3, 4, 5], // Second row
+      [6, 7, 8], // Third row
+      [0, 3, 6], // First column
+      [1, 4, 7], // Second column
+      [2, 5, 8], // Third column
+      [0, 4, 8], // Diagonal 1
+      [2, 4, 6], // Diagonal 2
     ];
 
     // Check all winning combinations
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return squares[a]; // Return X or O if there is a winner
       }
     }
     return null;
   };
 
+  // Handle a square click
   const handleClick = (i) => {
-    // Create a copy of the squares array - to not manipulate or cause an error in the main one
-    const newSquares = squares.slice();
-
-    // If the square is already filled, return early
-    if (newSquares[i]) {
+    // If there's already a winner, return early to prevent further moves
+    if (squares[i] || winner) {
       return;
     }
+
+    // Create a copy of the squares array
+    const newSquares = squares.slice();
 
     // Switch between X and O based on the current player
     newSquares[i] = xIsNext ? 'X' : 'O';
@@ -47,12 +47,12 @@ const Board = () => {
     setSquares(newSquares);
 
     // Check if there's a winner
-    const winner = calculateWinner(newSquares);
-    if (winner) {
-      setWinner(winner);
+    const calculatedWinner = calculateWinner(newSquares); // Rename this variable
+    if (calculatedWinner) {
+      setWinner(calculatedWinner);
     }
 
-    // Switch to the next player
+    // Switch to the next player if there's no winner yet
     setXIsNext(!xIsNext);
   };
 
@@ -63,7 +63,9 @@ const Board = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen mt-8">
+      {/* Player 1 and Player 2 graphics */}
       <div className="flex justify-between w-full max-w-[800px] mb-8">
+        {/* Player 1 graphic */}
         <div className={`text-2xl ${xIsNext ? 'text-blue-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
             <p>Player 1</p>
@@ -73,6 +75,7 @@ const Board = () => {
           </div>
         </div>
 
+        {/* Player 2 graphic */}
         <div className={`text-2xl ${!xIsNext ? 'text-red-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
             <p>Player 2</p>
@@ -83,8 +86,10 @@ const Board = () => {
         </div>
       </div>
 
+      {/* Status message */}
       <div className="mb-4 text-2xl font-bold">{status}</div>
 
+      {/* Game board */}
       <div className="flex justify-center w-full max-w-[800px]">
         <MainBoard squares={squares} handleClick={handleClick} />
 
