@@ -12,7 +12,7 @@ const Board = () => {
     // Create a copy of the squares array to avoid mutating the original
     const newSquares = squares.slice();
 
-    // Check if winner or sqaure is filled
+    // Check if winner or square is filled
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -37,28 +37,45 @@ const Board = () => {
   const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="mb-4 text-2xl font-bold">{status}</div>
+    <div className="flex flex-row justify-center items-center h-screen">
+      {/* Left Screen */}
+      <div className="w-1/4 flex justify-center items-center bg-gray-200">
+        <p>Left Screen</p>
+      </div>
 
-      {/* Render the 3 rows of squares */}
-      <div className="flex">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+      {/* Middle Line */}
+      <div className="w-1 bg-black h-full"></div>
+
+      {/* Board (Center) */}
+      <div className="w-2/4 flex flex-col items-center justify-center">
+        <div className="mb-4 text-2xl font-bold">{status}</div>
+        {/* Render the 3 rows of squares */}
+        <div className="flex">
+          {renderSquare(0)}
+          {renderSquare(1)}
+          {renderSquare(2)}
+        </div>
+        <div className="flex">
+          {renderSquare(3)}
+          {renderSquare(4)}
+          {renderSquare(5)}
+        </div>
+        <div className="flex">
+          {renderSquare(6)}
+          {renderSquare(7)}
+          {renderSquare(8)}
+        </div>
       </div>
-      <div className="flex">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="flex">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
+
+      {/* Middle Line */}
+      <div className="w-1 bg-black h-full"></div>
+
+      {/* Right Screen */}
+      <div className="w-1/4 flex justify-center items-center bg-gray-200">
+        <p>Right Screen</p>
       </div>
     </div>
   );
 };
 
 export default Board;
-  
