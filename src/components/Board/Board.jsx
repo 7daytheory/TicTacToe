@@ -1,28 +1,48 @@
-import React, { useState } from 'react'; // Import React and useState hook from React library
-import Square from '../Square/Square'; // Import the Square component from the specified path
+import React, { useState } from 'react';
+import Square from '../Square/Square';
 
 const Board = () => {
-  // Initialize state for the board squares
-  // `squares` is an array of 9 elements representing the 9 squares of the board.
-  // Initially, all squares are set to `null` (no moves made).
-  // `setSquares` is the function to update the state.
+  // Board squares state
   const [squares, setSquares] = useState(Array(9).fill(null));
 
-  // Render a single square by passing the current value (either 'X', 'O', or null) 
+  // Track whose turn it is
+  const [xIsNext, setXIsNext] = useState(true);
+
+  const handleClick = (i) => {
+    // Create a copy of the squares array to avoid mutating the original
+    const newSquares = squares.slice();
+
+    // Check if winner or sqaure is filled
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+
+    // Update square
+    newSquares[i] = xIsNext ? 'X' : 'O';
+
+    setSquares(newSquares);
+    setXIsNext(!xIsNext);
+  };
+
+  // Render square
   const renderSquare = (i) => {
     return (
       <Square
         value={squares[i]}
+        onClick={() => handleClick(i)}
       />
     );
   };
 
-  return (
-    <div className="flex flex-col items-center justify-center mt-8">
+  const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
 
-      {/* Render the 3 rows */}
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="mb-4 text-2xl font-bold">{status}</div>
+
+      {/* Render the 3 rows of squares */}
       <div className="flex">
-        {renderSquare(0)} {/* Render square at index 0  - 8 (1-9)*/}
+        {renderSquare(0)}
         {renderSquare(1)}
         {renderSquare(2)}
       </div>
@@ -33,11 +53,12 @@ const Board = () => {
       </div>
       <div className="flex">
         {renderSquare(6)}
-        {renderSquare(7)} 
+        {renderSquare(7)}
         {renderSquare(8)}
       </div>
     </div>
   );
 };
 
-export default Board
+export default Board;
+  
