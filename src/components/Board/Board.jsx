@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Board = () => {
+  const [setSquares, setSetSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(Null);
+
   return (
     <div className="flex flex-row justify-center items-center h-screen">
       {/* Left Board */}
