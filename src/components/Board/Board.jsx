@@ -5,6 +5,32 @@ const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
 
+  //Check for winner
+  const [winner, setWinner] = useState(null);
+
+  //Set possible winning combinations
+  const calculateWinner = (squares) => {
+    const lines = [
+      [0, 1, 2], // first - third row
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6], // First to third column
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8], // 2 diagonals
+      [2, 4, 6],
+    ];
+
+    // Check all winning combinations
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    return null;
+  };
+
   const handleClick = (i) => {
     // Create a copy of the squares array - to not manipulate or cause an error in the main one
     const newSquares = squares.slice();
@@ -20,11 +46,20 @@ const Board = () => {
     // Update squares state
     setSquares(newSquares);
 
+    // Check if there's a winner
+    const winner = calculateWinner(newSquares);
+    if (winner) {
+      setWinner(winner);
+    }
+
     // Switch to the next player
     setXIsNext(!xIsNext);
   };
 
-  const status = `Next player: ${xIsNext ? 'Player 1 (X)' : 'Player 2 (O)'}`;
+  // Display winner message if there's a winner
+  const status = winner
+    ? `Winner: ${winner}`
+    : `Next player: ${xIsNext ? 'Player 1 (X)' : 'Player 2 (O)'}`;
 
   return (
     <div className="flex flex-col items-center justify-center h-screen mt-8">
