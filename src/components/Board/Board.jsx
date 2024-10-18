@@ -41,9 +41,9 @@ const Board = () => {
   const status = `Next player: ${xIsNext ? 'Player 1 (X)' : 'Player 2 (O)'}`;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen mt-8">
       {/* Player 1 and Player 2 graphics */}
-      <div className="flex justify-between w-2/4 mb-8">
+      <div className="flex justify-between w-full max-w-[800px] mb-8">
         {/* Player 1 graphic */}
         <div className={`text-2xl ${xIsNext ? 'text-blue-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
@@ -69,9 +69,9 @@ const Board = () => {
       <div className="mb-4 text-2xl font-bold">{status}</div>
 
       {/* Game board */}
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex justify-center w-full max-w-[800px]">
         {/* Left Board */}
-        <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
+        <div className="flex flex-col items-center justify-center w-1/2 p-4">
           <div className="flex">
             {renderSquare(0)}
             {renderSquare(1)}
@@ -93,7 +93,7 @@ const Board = () => {
         <div className="w-1 bg-black h-full"></div>
 
         {/* Right Board (Same as Left Board) */}
-        <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
+        <div className="flex flex-col items-center justify-center w-1/2 p-4">
           <div className="flex">
             {renderSquare(0)}
             {renderSquare(1)}
