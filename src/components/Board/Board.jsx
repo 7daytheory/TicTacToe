@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Board = () => {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
+
+  // Handle a square click
+  const handleClick = (i) => {
+    // Create a copy of the squares array
+    const newSquares = squares.slice();
+
+    // If the square is already filled or there's a winner, return early
+    if (newSquares[i]) {
+      return;
+    }
+
+    // Switch between X and O based on the current player
+    newSquares[i] = xIsNext ? 'X' : 'O';
+
+    // Log the player who will play next
+    console.log(`The next player will be using: ${xIsNext ? 'O' : 'X'}`);
+
+    // Switch to the next player
+    setXIsNext(!xIsNext);
+  };
+
+  const renderSquare = (i) => {
+    return (
+      <button
+        className="w-16 h-16 border border-gray-400 flex items-center justify-center text-2xl"
+        onClick={() => handleClick(i)}
+      >
+        {squares[i]}
+      </button>
+    );
+  };
+
   return (
     <div className="flex flex-row justify-center items-center h-screen">
       {/* Left Board */}
       <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
-        <div className="mb-4 text-2xl font-bold">Status</div>
         <div className="flex">
           {renderSquare(0)}
           {renderSquare(1)}
@@ -26,9 +59,8 @@ const Board = () => {
       {/* Middle Line */}
       <div className="w-1 bg-black h-full"></div>
 
-      {/*  Board */}
+      {/* Right Board (Same as Left Board) */}
       <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
-        <div className="mb-4 text-2xl font-bold">Status</div>
         <div className="flex">
           {renderSquare(0)}
           {renderSquare(1)}
@@ -50,61 +82,3 @@ const Board = () => {
 };
 
 export default Board;
-
-
-/*
-  // State for the board on the left side
-  const [leftSquares, setLeftSquares] = useState(Array(9).fill(null));
-  const [xIsNextLeft, setXIsNextLeft] = useState(true);
-
-  // State for the board on the right side
-  const [rightSquares, setRightSquares] = useState(Array(9).fill(null));
-  const [xIsNextRight, setXIsNextRight] = useState(true);
-
-  // Handle click for the left board
-  const handleClickLeft = (i) => {
-    const newSquares = leftSquares.slice();
-    if (calculateWinner(leftSquares) || leftSquares[i]) {
-      return;
-    }
-    newSquares[i] = xIsNextLeft ? 'X' : 'O';
-    setLeftSquares(newSquares);
-    setXIsNextLeft(!xIsNextLeft);
-  };
-
-  // Handle click for the right board
-  const handleClickRight = (i) => {
-    const newSquares = rightSquares.slice();
-    if (calculateWinner(rightSquares) || rightSquares[i]) {
-      return;
-    }
-    newSquares[i] = xIsNextRight ? 'X' : 'O';
-    setRightSquares(newSquares);
-    setXIsNextRight(!xIsNextRight);
-  };
-
-  // Render square for the left board
-  const renderSquareLeft = (i) => {
-    return (
-      <Square
-        value={leftSquares[i]}
-        onClick={() => handleClickLeft(i)}
-      />
-    );
-  };
-
-  // Render square for the right board
-  const renderSquareRight = (i) => {
-    return (
-      <Square
-        value={rightSquares[i]}
-        onClick={() => handleClickRight(i)}
-      />
-    );
-  };
-
-  // Status messages for both boards
-  const statusLeft = `Next player: ${xIsNextLeft ? 'X' : 'O'}`;
-  const statusRight = `Next player: ${xIsNextRight ? 'X' : 'O'}`;
-
-  */
