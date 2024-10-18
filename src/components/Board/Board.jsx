@@ -48,7 +48,7 @@ const Board = () => {
         <div className={`text-2xl ${xIsNext ? 'text-blue-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
             <p>Player 1</p>
-            <div className="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mt-2">
+            <div className={`w-20 h-20 text-white rounded-full flex items-center justify-center mt-2 ${xIsNext ? 'bg-blue-600 font-bold' : 'bg-gray-400'}`}>
               X
             </div>
           </div>
@@ -58,7 +58,7 @@ const Board = () => {
         <div className={`text-2xl ${!xIsNext ? 'text-red-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
             <p>Player 2</p>
-            <div className="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center mt-2 ">
+            <div className={`w-20 h-20 text-white rounded-full flex items-center justify-center mt-2 ${!xIsNext ? 'bg-red-600 font-bold' : 'bg-gray-400'}`}>
               O
             </div>
           </div>
