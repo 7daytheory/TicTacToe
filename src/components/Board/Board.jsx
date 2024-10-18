@@ -1,43 +1,110 @@
-import React, { useState } from 'react'; // Import React and useState hook from React library
-import Square from '../Square/Square'; // Import the Square component from the specified path
+import React from 'react';
 
 const Board = () => {
-  // Initialize state for the board squares
-  // `squares` is an array of 9 elements representing the 9 squares of the board.
-  // Initially, all squares are set to `null` (no moves made).
-  // `setSquares` is the function to update the state.
-  const [squares, setSquares] = useState(Array(9).fill(null));
-
-  // Render a single square by passing the current value (either 'X', 'O', or null) 
-  const renderSquare = (i) => {
-    return (
-      <Square
-        value={squares[i]}
-      />
-    );
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center mt-8">
+    <div className="flex flex-row justify-center items-center h-screen">
+      {/* Left Board */}
+      <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
+        <div className="mb-4 text-2xl font-bold">Status</div>
+        <div className="flex">
+          {renderSquare(0)}
+          {renderSquare(1)}
+          {renderSquare(2)}
+        </div>
+        <div className="flex">
+          {renderSquare(3)}
+          {renderSquare(4)}
+          {renderSquare(5)}
+        </div>
+        <div className="flex">
+          {renderSquare(6)}
+          {renderSquare(7)}
+          {renderSquare(8)}
+        </div>
+      </div>
 
-      {/* Render the 3 rows */}
-      <div className="flex">
-        {renderSquare(0)} {/* Render square at index 0  - 8 (1-9)*/}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="flex">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="flex">
-        {renderSquare(6)}
-        {renderSquare(7)} 
-        {renderSquare(8)}
+      {/* Middle Line */}
+      <div className="w-1 bg-black h-full"></div>
+
+      {/*  Board */}
+      <div className="w-1/4 flex flex-col items-center justify-center bg-gray-200">
+        <div className="mb-4 text-2xl font-bold">Status</div>
+        <div className="flex">
+          {renderSquare(0)}
+          {renderSquare(1)}
+          {renderSquare(2)}
+        </div>
+        <div className="flex">
+          {renderSquare(3)}
+          {renderSquare(4)}
+          {renderSquare(5)}
+        </div>
+        <div className="flex">
+          {renderSquare(6)}
+          {renderSquare(7)}
+          {renderSquare(8)}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Board
+export default Board;
+
+
+/*
+  // State for the board on the left side
+  const [leftSquares, setLeftSquares] = useState(Array(9).fill(null));
+  const [xIsNextLeft, setXIsNextLeft] = useState(true);
+
+  // State for the board on the right side
+  const [rightSquares, setRightSquares] = useState(Array(9).fill(null));
+  const [xIsNextRight, setXIsNextRight] = useState(true);
+
+  // Handle click for the left board
+  const handleClickLeft = (i) => {
+    const newSquares = leftSquares.slice();
+    if (calculateWinner(leftSquares) || leftSquares[i]) {
+      return;
+    }
+    newSquares[i] = xIsNextLeft ? 'X' : 'O';
+    setLeftSquares(newSquares);
+    setXIsNextLeft(!xIsNextLeft);
+  };
+
+  // Handle click for the right board
+  const handleClickRight = (i) => {
+    const newSquares = rightSquares.slice();
+    if (calculateWinner(rightSquares) || rightSquares[i]) {
+      return;
+    }
+    newSquares[i] = xIsNextRight ? 'X' : 'O';
+    setRightSquares(newSquares);
+    setXIsNextRight(!xIsNextRight);
+  };
+
+  // Render square for the left board
+  const renderSquareLeft = (i) => {
+    return (
+      <Square
+        value={leftSquares[i]}
+        onClick={() => handleClickLeft(i)}
+      />
+    );
+  };
+
+  // Render square for the right board
+  const renderSquareRight = (i) => {
+    return (
+      <Square
+        value={rightSquares[i]}
+        onClick={() => handleClickRight(i)}
+      />
+    );
+  };
+
+  // Status messages for both boards
+  const statusLeft = `Next player: ${xIsNextLeft ? 'X' : 'O'}`;
+  const statusRight = `Next player: ${xIsNextRight ? 'X' : 'O'}`;
+
+  */
