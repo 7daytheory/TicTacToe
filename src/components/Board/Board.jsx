@@ -56,15 +56,22 @@ const Board = () => {
     setXIsNext(!xIsNext);
   };
 
+  // Reset the game
+  const resetGame = () => {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+    setWinner(null);
+  };
+
   // Display winner message if there's a winner
   const status = winner
     ? `Winner: ${winner}`
     : `Next player: ${xIsNext ? 'Player 1 (X)' : 'Player 2 (O)'}`;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen mt-8">
+    <div className="flex flex-col items-center justify-center h-screen">
       {/* Player 1 and Player 2 graphics */}
-      <div className="flex justify-between w-full max-w-[800px] mb-8">
+      <div className="flex justify-between w-full max-w-[800px] mb-8 mt-[100px]">
         {/* Player 1 graphic */}
         <div className={`text-2xl ${xIsNext ? 'text-blue-600 font-bold' : 'text-gray-400'}`}>
           <div className="flex flex-col items-center mt-[85px]">
@@ -87,7 +94,9 @@ const Board = () => {
       </div>
 
       {/* Status message */}
-      <div className="mb-4 text-2xl font-bold">{status}</div>
+      <div className={`mb-4 text-3xl tracking-wider font-bold ${winner ? 'text-green-600 font-bold' : ''}`}>
+        {status}
+        </div>
 
       {/* Game board */}
       <div className="flex justify-center w-full max-w-[800px]">
@@ -98,6 +107,14 @@ const Board = () => {
 
         <MainBoard squares={squares} handleClick={handleClick} />
       </div>
+
+      {/* Restart Button */}
+      <button
+        onClick={resetGame}
+        className="mt-8 px-4 py-2 bg-blue-600 text-white rounded-md"
+      >
+        Restart Game
+      </button>
     </div>
   );
 };
