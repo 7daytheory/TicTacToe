@@ -5,7 +5,7 @@ const MainBoard = ({ squares, handleClick }) => {
   const renderSquare = (i) => {
     return (
       <button
-        className="w-[8rem] h-[8rem] border-2 border-gray-800 flex items-center justify-center text-6xl"
+        className="w-[2em] h-[2em] border-2 border-gray-800 flex items-center justify-center text-6xl"
         onClick={() => handleClick(i)}
       >
         {squares[i]}
